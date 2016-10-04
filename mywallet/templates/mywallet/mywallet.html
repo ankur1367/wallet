@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>My Wallet</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}"/>
+     <link rel="stylesheet" type="text/css" href="{% static 'mywallet/mywallet.css' %}" />
+</head>
+
+<body>
+{% load crispy_forms_tags %}
+
+<!--NAVBAR-->
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href=/mywallet>Simple Wallet</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav nav-right">
+                <li><a>already spent: 1040 / budget: 5000</a></li>
+                <li><a id="date-field"></a></li>
+                <li><img class="avatar-img img-circle img-responsive center-block" src="/static/mywallet/avatar.png"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--CONTAINER-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="#">Main</a></li>
+                <li><a href="#">Statistic</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="logout">Log out</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main main-block">
+            <h1 class="page-header">Main information</h1>
+
+
+            <div class="col-md-6">
+                <table class="table table-responsive">
+                    <tbody>
+                    <tr><h3>Operations</h3></tr>
+                    {% for operation in operations %}
+                    <tr>
+                        <td>{{operation.title}}</td>
+                        <td>{{operation.wallet_title}}</td>
+                        <td>{%if operation.operation_type == 'DP' %}+{%endif%}{%if operation.operation_type == 'SP' %}- {%endif%}{{operation.sum}} ({{operation.currency}})</td>
+                        <td>{{operation.date}}</td>
+                    </tr>
+                    {% endfor %}
+                    <!--<tr>-->
+                        <!--<td>cinema, party, other</td>-->
+                        <!--<td>Visa gold (work card)</td>-->
+                        <!--<td>-35.5 (USD)</td>-->
+                        <!--<td>12.05.2005</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>cinema, party, other</td>-->
+                        <!--<td>Visa gold (work card)</td>-->
+                        <!--<td>-35.5 (USD)</td>-->
+                        <!--<td>12.05.2005</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>cinema, party, other</td>-->
+                        <!--<td>Visa gold (work card)</td>-->
+                        <!--<td>-35.5 (USD)</td>-->
+                        <!--<td>12.05.2005</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>cinema, party, other</td>-->
+                        <!--<td>Visa gold (work card)</td>-->
+                        <!--<td>-35.5 (USD)</td>-->
+                        <!--<td>12.05.2005</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>cinema, party, other</td>-->
+                        <!--<td>Visa gold (work card)</td>-->
+                        <!--<td>-35.5 (USD)</td>-->
+                        <!--<td>12.05.2005</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td><a>More spending's </a></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                        <!--<td></td>-->
+                    <!--</tr>-->
+                    </tbody>
+                </table>
+                 <div>
+                     {%if operations%}
+                        <span class="step-links">
+                            {% if operations.has_previous %}
+                                <a href="?page={{ operations.previous_page_number }}">previous</a>
+                            {% endif %}
+
+                            <span class="current">
+                                Page {{ operations.number }} of {{ operations.paginator.num_pages }}.
+                            </span>
+
+                            {% if operations.has_next %}
+                                <a href="?page={{ operations.next_page_number }}">next</a>
+                            {% endif %}
+                         {%endif%}
+                        </span>
+                    </div>
+            </div>
+
+
+            <div class="col-md-4 add-spending">
+                <h3><a id="operation-spending-button" class="btn btn-lg">Spending</a>/<a id="operation-incom-button" class="btn btn-lg">Income</a> </h3>
+
+                <form id="spending-form" class="form-horizontal form-group" role="form">
+                    <div id = "spending-title-form" class="form-group">
+                        <input type="text" class="form-control" id="spending-title-input" placeholder="Title">
+                    </div>
+                    <div id = "spending-sum-form" class="form-group input-group">
+                        <span id="sum-addon" class="input-group-addon">-</span>
+                        <input type="text" class="form-control" id="spending-sum-input" placeholder="Sum">
+                    </div>
+                    <div id="div_id_wallets" class="form-group">
+                        <div class="controls ">
+                            <select class="form-control select form-control" id="id_wallets" name="wallets"></select>
+                        </div>
+                    </div>
+                    <div id="div_id_code" class="form-group">
+                        <div class="controls ">
+                            <select class="form-control select form-control" id="id_code" name="code"></select>
+                        </div>
+                    </div>
+                    <div id="spending-date-form" class="form-group">
+                        <input type="date" class="form-control" id="spending-date-input">
+                    </div>
+                    <a id="spending-button" class="btn btn-primary">Add</a>
+                </form>
+
+            </div>
+
+
+
+
+
+            <div class="col-sm-9 col-md-10">
+
+                <div id="add-button-div" class="col-md-2">
+                    <div id="add-wallet-button" class="circle btn center-block"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="{% static 'jquery/dist/jquery.min.js' %}"> </script>
+<script type="text/javascript" src="{% static 'ajax/dist/ajax.min.js' %}"> </script>
+<script type="text/javascript" src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'mywallet/mywallet.js' %}"></script>
+<script type="text/javascript" src="{% static 'transparency/dist/transparency.min.js' %}"></script>
+</body>
+</html>

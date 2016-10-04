@@ -1,0 +1,144 @@
+{% load static %}
+<!-- Load static should be loaded on the top of the file - it's a common practive -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--<link rel="shortcut icon" href="bower_components/bootstrap/ico/favicon.ico" MUST LOOK>-->
+
+    <title>Wallet</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}"/>
+
+    <!-- Custom styles for this template -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'auth/index.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'auth/carousel.css' %}" />
+
+
+
+
+
+
+</head>
+
+<body>
+{% load crispy_forms_tags %}
+
+<div class="container">
+    <div class="header">
+        <ul class="nav nav-pills pull-right">
+            <li class="active"><a href="#carousel" data-slide-to="0">Home</a></li>
+            <li><a id = "about" href="#carousel" data-slide-to="1">About</a></li>
+            <li><a href="#carousel" data-slide-to="2">Contact</a></li>
+        </ul>
+        <h3 class="text-muted"><a class="text-muted" href="/" style="text-decoration:none;">Welcome to your wallet</a></h3>
+    </div>
+</div>
+
+
+<div id="carousel" class="carousel slide container jumbotron" data-ride="carousel" data-interval="false">
+
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel" data-slide-to="0"></li>
+        <li data-target="#carousel" data-slide-to="1"></li>
+        <li data-target="#carousel" data-slide-to="2"></li>
+    </ol>
+
+
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+                <container>
+                    {% if mainDisabled %}
+                        <div id="home" class="disabled carousel-capt">
+                    {% else %}
+                        <div id="home" class="carousel-capt">
+                    {% endif %}
+
+                        <h1 class="shadow-text">Simple HD Bitcoin Wallet</h1>
+                            {% if messages %}
+                            <div class="alert alert-success" role="alert">
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif%}
+                        <p class="lead shadow-text">Cryptocurrency HD wallet with MultiSignature Option. Saving private offline makes our wallet more secure.</p>
+                        <p><a id="reg-button" class="btn btn-lg btn-success" role="button">Sign up</a> <a id="log-btn" class="btn btn-lg btn-danger" role="button">Sign in</a></p>
+                    </div>
+
+                    {% if authDisabled %}
+                       <div id="login-form" class="disabled carousel-capt">
+                    {% else %}
+                       <div id="login-form" class="carousel-capt">
+                    {% endif %}
+                        <h1 class="shadow-text">Authorization</h1>
+                        <div class="form-group input-form">
+                            {% csrf_token %}
+                            {% crispy LoginForm %}
+                        </div>
+                    </div>
+
+
+                    {% if regDisabled %}
+                       <div id="registration-form" class="disabled carousel-capt">
+                    {% else %}
+                       <div id="registration-form" class="carousel-capt">
+                    {% endif %}
+                        <h1 class="shadow-text">Registration</h1>
+                        <div class="form-group input-form">
+                                {% csrf_token %}
+                                {% crispy RegForm %}
+                        </div>
+                    </div>
+                </container>
+
+        </div>
+        <div class="item">
+            <div class="reg-content carousel-caption">
+                <h1>About</h1>
+            </div>
+        </div>
+        <div class="item">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Contact</h1>
+                    <p class="lead">ankur@ith.tech</p>
+                    <p class="lead">github.com/</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a class="left carousel-control" href="#carousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+
+    <a class="right carousel-control" href="#carousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+
+</div>
+
+
+
+
+    <div class="footer container">
+        <p>&copy;Me@2016</p>
+    </div>
+
+<script type="text/javascript" src="{% static 'jquery/dist/jquery.min.js' %}"> </script>
+<script type="text/javascript" src="{% static 'auth/index.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

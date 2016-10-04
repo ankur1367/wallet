@@ -1,0 +1,202 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+    display: none;
+}
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        background-color: #f5f5f5;
+        border-right: 1px solid #eee;
+    }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+.nav-sidebar > li > a {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.nav-sidebar > .active > a {
+    color: #fff;
+    background-color: #428bca;
+}
+
+.nav-right {
+    float: right !important;
+    margin-right: 40px;
+}
+/*
+ * Main content
+ */
+
+.main {
+    margin-top: 15px;
+    padding: 20px;
+}
+@media (min-width: 768px) {
+    .main {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+.main .page-header {
+    margin-top: 0;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.placeholders h4 {
+    margin-bottom: 0;
+}
+.placeholder {
+    margin-bottom: 20px;
+}
+.placeholder img {
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.avatar-img {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 50px;
+}
+
+
+/*big plus button styles*/
+
+body
+{
+    padding: 50px; /* For this demo only */
+}
+
+.center {
+    margin-left: 25%;
+}
+
+.circle
+{
+    display: block;
+    background: #3498db;
+    width: 50px;  /* Can be any size you want */
+    height: 50px; /* Can be any size you want */
+    border-radius: 50%; /* Makes the div a circle */
+    position: relative; /* Allows you to position the pseudo elements */
+    margin-top: 40%;
+    margin-bottom: 40%;
+}
+
+
+.circle:before, .circle:after
+{
+    display: block;
+    content: "";
+    position: absolute;
+    border-radius: 1px;
+    background: #fff;
+}
+
+.circle:before
+{
+    width: 4px;
+    height: 15px;
+    top: calc(50% - 7px); /* 16px = half of the height */
+    left: calc(50% - 2px); /* 2px = half of the width */
+}
+
+.circle:after
+{
+    width: 15px;
+    height: 4px;
+    top: calc(50% - 2px);   /* 2px = half of the height */
+    left: calc(50% - 7px); /* 16px = half of the width */
+}
+
+.wallet-frame {
+    /*width: 100px;	height: 100px; !* Размеры *!*/
+    background: #e2e8ef; /* Цвет фона */
+    /*outline: 2px solid #878787; !* Чёрная рамка *!*/
+    border: 3px solid #fff; /* Белая рамка */
+    border-radius: 10px; /* Радиус скругления */
+}
+
+.wallet-block {
+    margin-top: 2%;
+    margin-right: 2%;
+}
+
+.add-spending {
+    margin-left: 90px;
+}
+
+.btn-padding {
+    padding: 0px;
+}
+
+.disabled{
+    display: none;
+    opacity: 0;
+}
+
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: none;
+    background-color: #8d8d8d;
+    color: #000000;
+    height: 1px;
+}
+
+.text-overflow {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.edit-title {
+    margin-top: 10px;
+}
